@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MABIM 2 - Alur & Manajemen</title>
+    <link rel="stylesheet" href="../style.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================================= */
+        /* GLOBAL & BASE STYLES (Diperlukan karena style.css utama tidak terhubung) */
+        /* ========================================================================= */
+        
+        /* Smooth scroll untuk tautan ke #services */
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Background gelap total, plus pattern dot agar futuristik */
+            background: #0d0d0d;
+            color: #e0e0e0;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* ========================================================================= */
+        /* NAVBAR (Presisi dan Aesthetic) */
+        /* ========================================================================= */
+        .navbar {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 40px;
+            background: #0d0d0d;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #navbar__logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        #navbar__logo img {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+        }
+
+        /* ========================================================================= */
+        /* CARD CONTAINER & MAIN LAYOUT */
+        /* ========================================================================= */
+
+        .card-detail {
+            min-height: calc(100vh - 80px); /* Kurangi tinggi navbar */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card-detail__container {
+            max-width: 900px;
+            width: 100%;
+            /* Semi-transparan untuk efek glass */
+            background: rgba(18, 18, 18, 0.9);
+            padding: 40px; 
+            border-radius: 20px;
+            
+            /* Glass/Frosted Effect */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
+            /* Neon Border Glow (Cyan/Biru) - Selaras dengan FORTRAN */
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Judul Utama Materi (MABIM 2) */
+        .card-detail__text h1 {
+            font-size: 3rem; 
+            margin-bottom: 40px; 
+            font-weight: 800;
+
+            /* Neon Text Effect - Merah/Magenta - Selaras dengan KELOMPOK TIGA BELAS */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.7);
+        }
+
+        /* ========================================================================= */
+        /* ACCORDION (MATERI BOX) STYLES */
+        /* ========================================================================= */
+        
+        .materi-box {
+            background: #1e1e1e;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Aktifkan glow pada box yang sedang terbuka (Biru/Cyan) */
+        .materi-box.active {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            border-color: #00c6ff;
+        }
+
+        /* Judul Accordion (Alur Advokasi, Manajemen Waktu) */
+        .materi-title {
+            padding: 20px 25px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #00c6ff; /* Warna Neon Biru */
+            background: #252525;
+            transition: background 0.3s, color 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .materi-title:hover {
+            background: #333333;
+            color: #ff8c7f; /* Efek hover berubah warna */
+        }
+        
+        /* Konten Accordion */
+        .materi-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+            padding: 0 25px;
+            background: #181818;
+        }
+
+        .materi-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin: 20px 0;
+        }
+
+        .materi-box.active .materi-content {
+            max-height: 5000px; 
+            padding: 15px 25px;
+        }
+
+        /* ========================================================================= */
+        /* TOMBOL BACK TO CONTENT */
+        /* ========================================================================= */
+        
+        .card-detail__text a {
+            /* Flex untuk meratakan ikon panah */
+            display: inline-flex; 
+            align-items: center;
+            gap: 10px; 
+            padding: 15px 30px; 
+            font-size: 1.1rem;
+            font-weight: 600;
+
+            /* Gradient & Shadow (Magenta/Merah) */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5); 
+            transition: all 0.3s;
+            margin-top: 40px; 
+        }
+
+        .card-detail__text a:hover {
+            /* Warna hover Biru/Cyan */
+            background: linear-gradient(to right, #00c6ff, #0072ff); 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.7);
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__container">
+    <a href="../index.html" id="navbar__logo">
+      <img src="../images/fortran.png" alt="Logo">
+    </a>
+  </div>
+</nav>
+
+<section class="card-detail">
+  <div class="card-detail__container">
+    <div class="card-detail__text">
+      <h1>MABIM 2</h1>
+
+            <div class="materi-box">
+        <div class="materi-title">Alur Advokasi</div>
+        <div class="materi-content">
+           <p>Advokasi adalah upaya yang tujuannya untuk memberikan pembelaan, dukungan masyarakat atau pihak yang diambil haknya.</p>
+
+  <h3>Tujuan Advokasi:</h3> <br>
+  <ul>
+    <li>Agar suara atau aspirasi yang disampaikan dapat diperhatikan oleh masyarakat luas dan yang paling penting oleh para pembuat kebijakan secara langsung.</li>
+    <li>Mencari solusi lewat kebijakan atau keputusan yang lebih adil.</li>
+    <li>Memberdayakan kelompok yang terdampak supaya mereka punya suara.</li>
+  </ul> <br>
+
+  <h3>Peran Advokasi:</h3>
+  <p>Advokasi adalah fungsi vital ormawa. Ormawa sebagai “laboratorium kader”, jadi saluran formal untuk aspirasi, inisiasi dan gagasan positif.</p>
+
+  <h3>Landasan Advokasi:</h3>
+  <p>Landasan Advokasi adalah dasar atau pijakan yang digunakan dalam melakukan kegiatan advokasi agar punya arah, legitimasi, dan kekuatan. Landasan ini bisa berupa hukum, sosial, moral, politik, maupun akademik.</p>
+
+  <h4>1. Landasan Hukum</h4> 
+  <ul>
+    <li>Merujuk pada aturan perundang-undangan yang berlaku.</li>
+    <li>Contoh: UUD 1945, UU Perlindungan Anak, UU HAM, Peraturan Pemerintah, hingga peraturan daerah.</li>
+    <li>Memberi legitimasi agar advokasi sah secara hukum.</li>
+  </ul> <br>
+
+  <h4>2. Landasan Sosial</h4>
+  <ul>
+    <li>Bertumpu pada kondisi sosial, budaya, dan nilai yang berkembang di masyarakat.</li>
+    <li>Misalnya norma adat, nilai kebersamaan, keadilan sosial.</li>
+    <li>Agar advokasi tidak bertentangan dengan nilai masyarakat dan mudah diterima.</li>
+<br>
+   </ul>
+
+  <h4>3. Landasan Moral & Etika</h4>
+  <ul>
+    <li>Didukung oleh nilai kemanusiaan universal: keadilan, kesetaraan, kemanusiaan, dan kepedulian.</li>
+    <li>Jadi advokasi bukan hanya soal hukum, tapi juga soal kebenaran moral.</li>
+<br>
+</ul>
+
+  <h4>4. Landasan Politik</h4>
+  <ul>
+    <li>Berdasarkan hak warga negara untuk menyampaikan pendapat, kritik, dan aspirasi.</li>
+    <li>Menjadi dasar dalam memengaruhi kebijakan publik dan pengambilan keputusan pemerintah.</li>
+<br>
+</ul>
+
+  <h4>5. Landasan Akademik / Ilmiah</h4>
+  <ul>
+    <li>Menggunakan data, penelitian, kajian, dan fakta sebagai dasar argumen.</li>
+    <li>Membuat advokasi lebih kuat, rasional, dan kredibel.</li>
+<br>  
+</ul>
+
+  <h3>Hak dan Kewajiban Mahasiswa:</h3>
+  <h4>1. Organisasi dan Advokasi</h4>
+  <p><b>Hak:</b> menjadi wadah pengembangan diri, dukungan pendanaan, pembinaan, punya hak menyampaikan aspirasi/pendapatnya.</p>
+  <p><b>Kewajiban:</b> menjaga nama baik, mengamalkan nilai-nilai Islam, menjaga Pancasila dan NKRI, memenuhi kode etik.</p>
+
+  <h4>2. Akademik</h4>
+  <p><b>Hak:</b> memperoleh pendidikan, pengajaran dan bimbingan dari dosen.</p>
+  <p><b>Kewajiban:</b> mengerjakan, mengumpulkan tugas yang telah diberikan oleh dosen sebelum deadline.</p>
+
+  <h3>Alur Advokasi:</h3>
+  <ol>
+    <li><b>Internal mahasiswa:</b> tahapan di lingkup kecil, seperti kelas atau angkatan.</li>
+    <li><b>Jurusan:</b> aspirasi ditampung, dikaji dan dibahas bersama, contohnya HMJ.</li>
+    <li><b>Fakultas:</b> masalah lintas jurusan ditangani oleh DEMA-FST melalui divisi advokasi.</li>
+    <li><b>Birokrasi:</b> SEMA-FST berperan sebagai pengawas, mengelola masalah dari HMJ dan DEMA-FST lalu diadvokasi bersama birokrasi fakultas.</li>
+  </ol> <br>
+
+  <h3>Peran Ormawa:</h3> 
+  <ul>
+    <li><b>HMJ:</b> menampung dan menyalurkan aspirasi mahasiswa jurusan.</li>
+    <li><b>DEMA-FST:</b> badan eksekutif tingkat fakultas.</li>
+    <li><b>SEMA-FST:</b> badan legislatif dan pengawas fakultas yang mengatur anggaran dan membuat peraturan.</li>
+  </ul> <br>
+
+  <h3>Kritis adalah Identitas Mahasiswa</h3>
+  <ul>
+    <li><b>Landasan intelektual:</b> wajib menganalisa kebijakan.</li>
+    <li><b>Tujuan kritis:</b> mengidentifikasi antara idealisme dan realita.</li>
+    <li><b>Kesadaran diri:</b> mengetahui peran ganda sebagai pelajar (akademik) dan sebagai agen perubahan (sosial).</li>
+    <li><b>Implikasi di himatif:</b> mampu membedakan masalah personal dan masalah kolektif yang layak diadvokasi.</li>
+  </ul> <br>
+
+  <h3>Etika Penyampaian Pendapat</h3>
+  <ul>
+    <li><b>Basis data:</b> fakta, data dan regulasi yang dilanggar.</li>
+    <li><b>Saluran resmi:</b> mengutamakan audiensi surat resmi (HIMATIF ke prodi atau fakultas) dari jalur dialog.</li>
+    <li><b>Bahasa akademik:</b> jauhi bahasa provokatif, gunakan terminologi hukum atau regulasi yang benar dan santun.</li>
+    <li><b>Konsolidasi:</b> pastikan aspirasi yang diwakilkan adalah suara mayoritas bukan kepentingan pribadi atau kelompok kecil.</li>
+  </ul>
+          
+        </div>
+      </div>
+
+      <div class="materi-box">
+        <div class="materi-title">Manajemen Waktu</div>
+        <div class="materi-content">
+          
+<p>Manajemen waktu adalah merencanakan, mengatur, mengendalikan waktu yang dimiliki agar dapat digunakan secara efektif dan efisien untuk mencapai tujuan tertentu.</p>
+
+  <h3>Prinsip-prinsip Manajemen Waktu</h3>
+  <ul>
+    <li><b>Prioritas:</b> membedakan mana yang lebih penting dan mendesak antara urusan akademik dan organisasi.</li>
+    <li><b>Batas waktu:</b> membuat jadwal yang jelas agar tugas akademik dan kegiatan organisasi tidak saling bertabrakan.</li>
+    <li><b>Prokrastinasi:</b> menunda tugas akademik atau organisasi sehingga akhirnya menumpuk.</li>
+  </ul> <br>
+
+  <h3>Pengelolaan Stres</h3>
+  <p>Upaya mengendalikan tekanan fisik maupun mental agar tidak mengganggu aktivitas sehari-hari baik di bidang akademik maupun organisasi.</p>
+
+  <h3>Strategi Pengelolaan Stres</h3>
+  <ul>
+    <li>Atur waktu dengan baik.</li>
+    <li>Istirahat cukup.</li>
+    <li>Olahraga dan relaksasi.</li>
+    <li>Manajemen prioritas.</li>
+    <li>Cari dukungan sosial.</li>
+  </ul> <br>
+  <h3>Alat Pengukur & Evaluasi</h3>
+  <p>Mengetahui efektivitas. <br>
+    Manajemen waktu -> Proses menilai apakah cara mengatur waktu yang dilakukan
+    sudah membantu</p>
+    <h3>Langkah Evaluasi</h3>
+    <ul>
+        <li>Bandingkan rencana dengan realita</li>
+        <li>Identifikasi hambatan/distraksi</li>
+        <li>Ukur produktivitas</li>
+        <li>Refleksi & Perbaikan</li>
+    </ul>
+        </div>
+      </div>
+
+            <a href="../index.html#services">← Back to Content</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script Accordion
+  const materiBoxes = document.querySelectorAll(".materi-box");
+
+  materiBoxes.forEach((box) => {
+    const title = box.querySelector(".materi-title");
+    title.addEventListener("click", () => {
+      // Tutup semua box lain sebelum membuka yang baru
+      materiBoxes.forEach(item => {
+        if (item !== box) {
+          item.classList.remove("active");
+        }
+      });
+      box.classList.toggle("active");
+    });
+  });
+</script>
+</body>
+</html>

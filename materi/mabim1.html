@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MABIM 1 - Fundamental Phase</title>
+    <link rel="stylesheet" href="../style.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================================= */
+        /* GLOBAL & BASE STYLES (Neon/Futuristic Theme) */
+        /* ========================================================================= */
+        
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Background gelap total, plus pattern dot agar futuristik */
+            background: #0d0d0d;
+            color: #e0e0e0;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* ========================================================================= */
+        /* NAVBAR */
+        /* ========================================================================= */
+        .navbar {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 40px;
+            background: #0d0d0d;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #navbar__logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        #navbar__logo img {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+        }
+
+        /* ========================================================================= */
+        /* CARD CONTAINER & MAIN LAYOUT */
+        /* ========================================================================= */
+
+        .card-detail {
+            /* Perubahan align-items: flex-start -> center untuk pemusatan yang lebih baik */
+            min-height: calc(100vh - 80px); 
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card-detail__container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.9);
+            padding: 40px; 
+            border-radius: 20px;
+            
+            /* Glass/Frosted Effect */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
+            /* Neon Border Glow (Cyan/Biru) - Selaras dengan FORTRAN */
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Judul Utama Materi (MABIM 1) */
+        .card-detail__text h1 {
+            font-size: 3rem; 
+            margin-bottom: 40px; 
+            font-weight: 800;
+
+            /* Neon Text Effect - Merah/Magenta - Selaras dengan KELOMPOK TIGA BELAS */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.7);
+        }
+
+        /* ========================================================================= */
+        /* ACCORDION (MATERI BOX) STYLES */
+        /* ========================================================================= */
+        
+        .materi-box {
+            background: #1e1e1e;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Aktifkan glow pada box yang sedang terbuka (Biru/Cyan) */
+        .materi-box.active {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            border-color: #00c6ff;
+        }
+
+        /* Judul Accordion (materi-header) */
+        .materi-header {
+            padding: 20px 25px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #00c6ff; /* Warna Neon Biru */
+            background: #252525;
+            transition: background 0.3s, color 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            user-select: none;
+        }
+
+        .materi-header:hover {
+            background: #333333;
+            color: #ff8c7f; /* Efek hover berubah warna */
+        }
+        
+        /* Konten Accordion (materi-content) */
+        .materi-content {
+            /* Mengubah dari display:none menjadi max-height untuk smooth transition */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+            padding: 0 25px;
+            background: #181818;
+        }
+        
+        /* Ketika active, konten terbuka */
+        .materi-box.active .materi-content {
+            max-height: 5000px; /* Nilai besar agar konten pasti muat */
+            padding: 15px 25px;
+        }
+
+
+        .materi-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin: 20px 0;
+        }
+        
+        .materi-content ul, .materi-content ol {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin: 15px 0 15px 20px;
+        }
+
+
+        /* ========================================================================= */
+        /* TOMBOL BACK TO CONTENT */
+        /* ========================================================================= */
+        
+        .card-detail__text a {
+            /* Flex untuk meratakan ikon panah */
+            display: inline-flex; 
+            align-items: center;
+            gap: 10px; 
+            padding: 15px 30px; 
+            font-size: 1.1rem;
+            font-weight: 600;
+
+            /* Gradient & Shadow (Magenta/Merah) */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5); 
+            transition: all 0.3s;
+            margin-top: 40px; 
+        }
+
+        .card-detail__text a:hover {
+            /* Warna hover Biru/Cyan */
+            background: linear-gradient(to right, #00c6ff, #0072ff); 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.7);
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__container">
+    <a href="../index.html" id="navbar__logo">
+      <img src="../images/fortran.png" alt="Logo">
+    </a>
+  </div>
+</nav>
+
+<section class="card-detail">
+  <div class="card-detail__container">
+    <div class="card-detail__text">
+      <h1>MABIM 1</h1>
+
+            <div class="materi-box">
+        <div class="materi-header">Wahyu Memandu Ilmu</div>
+        <div class="materi-content">
+          <p>
+      <strong>Wahyu</strong> adalah petunjuk dari Allah SWT yang diberikan kepada utusan-Nya, 
+      sedangkan <strong>ilmu</strong> adalah pengetahuan yang dikembangkan oleh manusia 
+      berdasarkan apa yang ada di alam. Materi ini menjelaskan bahwa wahyu adalah cahaya 
+      yang memandu manusia dalam memahami ilmu. Dengan wahyu, ilmu pengetahuan tidak kehilangan 
+      arah dan tetap berpijak pada nilai-nilai ketuhanan yang membawa kebaikan. Jika disatukan, 
+      <em>Wahyu Memandu Ilmu</em> berarti ilmu yang dikembangkan manusia didasarkan pada Al-Qur'an 
+      dan Hadits.
+    </p>
+
+    <p>
+      Hubungan wahyu dan ilmu adalah sebagai pedoman nilai untuk memberi batasan agar manusia 
+      bisa membedakan mana yang boleh dan tidak boleh.
+    </p>
+
+    <p>
+      Ilmu juga menjadi syarat untuk memahami wahyu. Dengan ilmu, manusia dapat lebih mudah 
+      mengerti tanda-tanda kebesaran Allah di alam semesta ini.
+    </p>
+
+    <h3>Pentingnya Wahyu Memandu Ilmu:</h3>
+    <ul>
+      <li>Menjaga moral dalam ilmu, artinya agar penemuan yang didapatkan tidak digunakan untuk membuat kerusakan.</li>
+      <li>Menguatkan iman, sehingga keyakinan kita kepada Allah semakin bertambah.</li>
+      <li>Membawa manfaat, sebab ilmu yang dipandu wahyu akan lebih terarah kepada kemaslahatan manusia dan lingkungan.</li>
+    </ul>
+        </div>
+      </div>
+
+            <div class="materi-box">
+        <div class="materi-header">Pengantar Logika</div>
+        <div class="materi-content">
+          <p>
+      <strong>Logika</strong> adalah ilmu tentang cara berpikir benar dan sistematis, 
+      yang membantu membedakan argumen valid dan tidak valid.
+    </p>
+
+    <h3>Kesalahan berpikir (Fallacy):</h3>
+    <ul>
+      <li><em>Ad hominem</em>: menyerang pribadi, bukan argumennya.</li>
+      <li><em>Bandwagon</em>: ikut-ikutan karena mayoritas percaya.</li>
+      <li><em>False cause</em>: menganggap dua hal berhubungan sebab-akibat padahal tidak.</li>
+      <li><em>Generalisasi berlebihan</em>: menarik kesimpulan umum dari sampel kecil.</li>
+    </ul>
+
+    <h3>Sistematis Mikir:</h3>
+    <ol>
+      <li>1st Quarter → Dengerin</li>
+      <li>2nd Quarter → Dengerin</li>
+      <li>3rd Quarter → Artikan</li>
+      <li>4th Quarter → Pikirin</li>
+    </ol>
+
+    <h3>Jenis-jenis Penalaran:</h3>
+    <ol>
+      <li>
+        <strong>Deduktif</strong>: penarikan kesimpulan dari hal umum ke khusus.
+        <br><em>Contoh:</em> Semua manusia akan mati → Saya manusia → Saya akan mati.
+      </li>
+      <li>
+        <strong>Induktif</strong>: penarikan kesimpulan dari hal khusus ke umum.
+        <br><em>Contoh:</em> Burung yang saya lihat bisa terbang → Semua burung bisa terbang (tanpa ada pengecualian).
+      </li>
+    </ol>
+
+    <p>
+      <strong>Logika dan agama</strong> adalah dua hal yang saling bertautan. 
+      Jika kita berpikir secara logika tanpa menyertakan agama, maka pikiran itu akan mengambang-ambang. 
+      Agama berfungsi agar pikiran manusia tidak melewati batas pemikiran yang wajar.
+    </p>
+        </div>
+      </div>
+
+            <div class="materi-box">
+        <div class="materi-header">Keinformatikaan</div>
+        <div class="materi-content">
+            <h3>Informatika itu Luas</h3>
+  <ul>
+    <li>Software Engineering</li>
+    <li>AI & Data Scientist</li>
+    <li>Web Development</li>
+    <li>Network & Cloud</li>
+    <li>Blockchain, Cryptography</li>
+    <li>Dan sebagainya</li>
+  </ul>
+  <p><em>“Pastikan jalan yang kalian tempuh bukan jalan yang salah. Temukan fokusmu agar bisa survive di bidang yang luas ini!”</em></p>
+
+  <h3>Tantangan Mahasiswa</h3>
+  <ul>
+    <li>Adaptasi (tugas, organisasi, ekspektasi)</li>
+    <li>Banyak pilihan bikin bingung</li>
+    <li>Tekanan sosial: membandingkan diri dengan orang lain</li>
+    <li>Distraksi dan arah yang belum jelas</li>
+  </ul>
+  <p><b>*Opini orang lain gak penting!</b></p>
+
+  <h3>Pentingnya Menentukan Tujuan</h3>
+  <p>Tujuan = Kompas kuliah. Sederhana dulu aja, yang penting ada.</p>
+
+  <h4>Ikigai</h4>
+  <p><i>Iki</i> (hidup), <i>gai</i> (gaya)</p>
+  <p>Carilah:</p>
+  <ul>
+    <li><b>Passion</b>: apa yang Anda cintai</li>
+    <li><b>Mission</b>: apa yang dibutuhkan dunia</li>
+    <li><b>Vocation</b>: apa yang menghasilkan pendapatan</li>
+    <li><b>Profession</b>: apa yang Anda kuasai</li>
+  </ul>
+
+  <h4>S.M.A.R.T. Goals Model</h4>
+  <ul>
+    <li><b>Specific</b> → jelas</li>
+    <li><b>Measurable</b> → bisa diukur</li>
+    <li><b>Achievable</b> → realistis</li>
+    <li><b>Relevant</b> → sesuai minat</li>
+    <li><b>Time-bound</b> → ada target waktu</li>
+  </ul>
+
+  <h4>Contoh di Informatika</h4>
+  <ul>
+    <li>“Saya ingin jago ngoding” <span style="color:red;">(salah)</span></li>
+    <li>“Saya ingin membuat web portfolio dengan HTML dalam 3 bulan” <span style="color:green;">(benar)</span></li>
+    <li>“Saya ingin ikut lomba” <span style="color:red;">(salah)</span></li>
+    <li>“Saya ingin ikut kompetisi web design dengan membuat landing page” <span style="color:green;">(benar)</span></li>
+  </ul>
+        </div>
+      </div>
+
+            <a href="../index.html#services">← Back to Content</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script untuk accordion dengan transisi smooth
+  const materiBoxes = document.querySelectorAll(".materi-box");
+
+  materiBoxes.forEach((box) => {
+    const title = box.querySelector(".materi-header");
+    title.addEventListener("click", () => {
+        // Tutup semua box lain yang sedang aktif (hanya boleh satu terbuka)
+        materiBoxes.forEach(item => {
+          if (item !== box) {
+            item.classList.remove("active");
+          }
+        });
+      
+        // Buka/Tutup box yang diklik
+        box.classList.toggle("active");
+    });
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MABIM 3 - Final Project</title>
+    <link rel="stylesheet" href="../style.css" /> 
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ========================================================================= */
+        /* GLOBAL & BASE STYLES (Neon/Futuristic Theme) */
+        /* ========================================================================= */
+        
+        html {
+            scroll-behavior: smooth; 
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            /* Background gelap total, plus pattern dot agar futuristik */
+            background: #0d0d0d;
+            color: #e0e0e0;
+            background-image: radial-gradient(#1a1a1a 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* ========================================================================= */
+        /* NAVBAR */
+        /* ========================================================================= */
+        .navbar {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 40px;
+            background: #0d0d0d;
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        #navbar__logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+        }
+
+        #navbar__logo img {
+            height: 45px;
+            width: auto;
+            margin-right: 12px;
+        }
+
+        /* ========================================================================= */
+        /* CARD CONTAINER & MAIN LAYOUT */
+        /* ========================================================================= */
+
+        .card-detail {
+            min-height: calc(100vh - 80px); 
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card-detail__container {
+            max-width: 900px;
+            width: 100%;
+            background: rgba(18, 18, 18, 0.9);
+            padding: 40px; 
+            border-radius: 20px;
+            
+            /* Glass/Frosted Effect */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+
+            /* Neon Border Glow (Cyan/Biru) - Selaras dengan FORTRAN */
+            border: 2px solid rgba(0, 255, 255, 0.3);
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2), 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* Judul Utama Materi (MABIM 3) */
+        .card-detail__text h1 {
+            font-size: 3rem; 
+            margin-bottom: 40px; 
+            font-weight: 800;
+
+            /* Neon Text Effect - Merah/Magenta - Selaras dengan KELOMPOK TIGA BELAS */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            -webkit-background-clip: text;
+            color: transparent;
+            text-align: center;
+            text-shadow: 0 0 12px rgba(255, 0, 127, 0.7);
+        }
+
+        /* ========================================================================= */
+        /* ACCORDION (MATERI BOX) STYLES */
+        /* ========================================================================= */
+        
+        .materi-box {
+            background: #1e1e1e;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Aktifkan glow pada box yang sedang terbuka (Biru/Cyan) */
+        .materi-box.active {
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+            border-color: #00c6ff;
+        }
+
+        /* Judul Accordion (materi-title) */
+        .materi-title {
+            padding: 20px 25px;
+            cursor: pointer;
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #00c6ff; /* Warna Neon Biru */
+            background: #252525;
+            transition: background 0.3s, color 0.3s;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            user-select: none;
+        }
+
+        .materi-title:hover {
+            background: #333333;
+            color: #ff8c7f; /* Efek hover berubah warna */
+        }
+        
+        /* Konten Accordion (materi-content) */
+        .materi-content {
+            /* Menggunakan max-height untuk transisi smooth */
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.3s ease;
+            padding: 0 25px;
+            background: #181818;
+        }
+        
+        /* Ketika active, konten terbuka */
+        .materi-box.active .materi-content {
+            max-height: 800px; /* Nilai besar agar konten pasti muat */
+            padding: 15px 25px;
+        }
+
+
+        .materi-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin: 20px 0 15px 0;
+        }
+        
+        .materi-content ul, .materi-content ol {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: #c0c0c0;
+            margin: 0 0 15px 20px; 
+            padding-left: 0;
+        }
+        
+        .materi-content li {
+            margin-bottom: 8px;
+        }
+
+
+        /* ========================================================================= */
+        /* TOMBOL BACK TO CONTENT */
+        /* ========================================================================= */
+        
+        .card-detail__text a {
+            /* Flex untuk meratakan ikon panah */
+            display: inline-flex; 
+            align-items: center;
+            gap: 10px; 
+            padding: 15px 30px; 
+            font-size: 1.1rem;
+            font-weight: 600;
+
+            /* Gradient & Shadow (Magenta/Merah) */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5); 
+            transition: all 0.3s;
+            margin-top: 40px; 
+        }
+
+        .card-detail__text a:hover {
+            /* Warna hover Biru/Cyan */
+            background: linear-gradient(to right, #00c6ff, #0072ff); 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.7);
+        }
+
+    </style>
+</head>
+<body>
+<nav class="navbar">
+  <div class="navbar__container">
+    <a href="../index.html" id="navbar__logo">
+      <img src="../images/fortran.png" alt="Logo">
+    </a>
+  </div>
+</nav>
+
+<section class="card-detail">
+  <div class="card-detail__container">
+    <div class="card-detail__text">
+      <h1>MABIM 3</h1>
+
+            <div class="materi-box">
+        <div class="materi-title">Retorika dan Komunikasi</div>
+        <div class="materi-content">
+          <p>
+            Materi ini membahas **seni berbicara** dan menyampaikan pesan secara efektif. 
+            Retorika adalah seni menyusun argumen yang meyakinkan, sedangkan komunikasi 
+            adalah proses penyampaian pesan. Keduanya penting agar mahasiswa mampu 
+            mempengaruhi, menginspirasi, dan membangun hubungan yang baik dengan orang lain.
+          </p>
+        </div>
+      </div>
+
+            <div class="materi-box">
+        <div class="materi-title">Kepemimpinan, Manajemen Organisasi, dan Islam</div>
+        <div class="materi-content">
+          <p>
+            Materi ini mengajarkan prinsip **kepemimpinan** yang berintegritas, kemampuan 
+            mengelola organisasi, serta **nilai-nilai Islam** sebagai landasan moral. 
+            Mahasiswa diajak memahami bahwa pemimpin bukan hanya soal posisi, 
+            tetapi juga tentang tanggung jawab, pelayanan, dan amanah. Manajemen yang baik 
+            harus berlandaskan pada prinsip keadilan dan musyawarah.
+          </p>
+        </div>
+      </div>
+
+      <a href="../index.html#services">← Back to Content</a>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Script untuk accordion dengan transisi smooth
+  const materiBoxes = document.querySelectorAll(".materi-box");
+
+  materiBoxes.forEach((box) => {
+    const title = box.querySelector(".materi-title");
+    title.addEventListener("click", () => {
+        // Tutup semua box lain yang sedang aktif (hanya boleh satu terbuka)
+        materiBoxes.forEach(item => {
+          if (item !== box) {
+            item.classList.remove("active");
+          }
+        });
+      
+        // Buka/Tutup box yang diklik
+        box.classList.toggle("active");
+    });
+  });
+</script>
+</body>
+</html>
