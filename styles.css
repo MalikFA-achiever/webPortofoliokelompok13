@@ -550,8 +550,8 @@ body::before {
 /* ========================================================================= */
 .about {
     background: transparent;
-    min-height: 100vh; /* Menggunakan min-height agar konten bisa lebih panjang */
-    padding: 100px 20px; /* Tambah padding */
+    /* min-height: auto;  */
+    padding: 80px 20px; /* Tambah padding */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -618,13 +618,14 @@ body::before {
 }
 
 .about__image img {
-    max-width: 400px;
+    max-width: 300px;
     width: 100%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.4), 0 0 30px rgba(255, 112, 98, 0.4); /* Shadow lebih menonjol */
+    filter: drop-shadow(0 0 20px rgba(255, 112, 98, 0.7));
     transition: transform 0.3s ease-in-out;
 }
+
 
 .about__image img:hover {
     transform: scale(1.03);
@@ -659,10 +660,10 @@ body::before {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
-    padding: 100px 20px;
+    /* min-height: auto; */
+    padding: 80px 20px;
     padding-bottom: 80px; /* Padding lebih besar */
-    padding-top: 80px;
+    padding-top: 40px;
     scroll-margin-top: 100px;
     position: relative;
     overflow: hidden;
@@ -1259,4 +1260,167 @@ body::before {
     .website__rights {
         margin-top: 10px;
     }
+}
+
+/* ========================================================================= */
+/* SAKTI CONTENT STYLES (Disesuaikan dengan Tema Gelap)     */
+/* ========================================================================= */
+
+/* Main Wrapper - Dark, Elevated Container */
+.container-wrapper {
+    width: 100%;
+    max-width: 1100px;
+    background-color: rgba(20, 20, 20, 0.9); /* Semi-transparent dark background */
+    box-shadow: 0 4px 30px rgba(255, 112, 98, 0.3); /* Glow shadow dari warna tema */
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+    margin: 50px auto;
+    color: #fff; /* Ensure all text inside is white/light */
+    position: relative;
+    z-index: 10;
+}
+
+/* Header/Title Block - Menggunakan Gradient Merah/Pink Tema */
+.title-block {
+    background: linear-gradient(to right, #ff0844 0%, #ff8177 100%); 
+    color: white;
+    padding: 30px 40px;
+    text-align: center;
+}
+
+.title-block h1 {
+    margin: 0;
+    font-size: 2.8em;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+.title-block h1 span {
+    /* Memberi glow cyan/biru untuk akronim S.A.K.T.I */
+    color: #21d4fd; 
+    text-shadow: 0 0 10px #21d4fd;
+}
+
+/* Content Container */
+.container {
+    padding: 40px;
+    display: flex;
+    align-items: flex-start; 
+}
+
+.text-content {
+    flex: 2;
+    padding-right: 40px;
+}
+
+.text-content p {
+    font-size: 1.1em;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    color: #e0e0e0; /* Light gray text */
+}
+
+/* Highlight word */
+.highlight {
+    font-weight: 700;
+    color: #ff7062; /* Merah/pink tema highlight */
+}
+
+/* Value List Styling */
+.value-list {
+    margin-top: 30px;
+}
+.value-list dt {
+    font-weight: bold;
+    color: #21d4fd; /* Cyan tema color untuk sub-headings */
+    margin-top: 15px;
+    font-size: 1.2em;
+    text-shadow: 0 0 5px rgba(33, 212, 253, 0.3);
+}
+.value-list dd {
+    margin-left: 0;
+    padding-left: 15px;
+    border-left: 3px solid #ff7062; /* Merah/pink tema border */
+    margin-bottom: 15px;
+    font-size: 1em;
+    color: #bdbdbd; /* Slightly darker light gray for description */
+}
+
+/* Icon/Logo Box */
+.icon-box {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px; 
+}
+
+.icon {
+    width: 200px;
+    height: 200px;
+    background-color: rgba(33, 212, 253, 0.1); /* Transparent blue background */
+    border: 2px solid #21d4fd;
+    box-shadow: 0 0 20px rgba(33, 212, 253, 0.5); /* Strong blue glow */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 120px;
+    font-weight: bold;
+    color: #21d4fd;
+    border-radius: 10px;
+}
+ /* ========================================================================= */
+        /* TOMBOL BACK TO CONTENT */
+        /* ========================================================================= */
+        
+        .card-detail__text a {
+            /* Flex untuk meratakan ikon panah */
+            display: inline-flex; 
+            align-items: center;
+            gap: 10px; 
+            padding: 15px 30px; 
+            font-size: 1.1rem;
+            font-weight: 600;
+
+            /* Gradient & Shadow (Magenta/Merah) */
+            background: linear-gradient(to right, #ff007f, #ff8c7f);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 10px; 
+            box-shadow: 0 4px 15px rgba(255, 0, 127, 0.5); 
+            transition: all 0.3s;
+            margin-top: 40px; 
+        }
+
+        .card-detail__text a:hover {
+            /* Warna hover Biru/Cyan */
+            background: linear-gradient(to right, #00c6ff, #0072ff); 
+            transform: translateY(-3px);
+            box-shadow: 0 4px 20px rgba(0, 200, 255, 0.7);
+        }
+
+/* Responsiveness (Adapted for this block) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 20px;
+    }
+    .text-content {
+        padding-right: 0;
+        padding-bottom: 20px;
+    }
+    .icon-box {
+        order: -1;
+        margin-bottom: 20px;
+    }
+    .icon {
+        width: 120px;
+        height: 120px;
+        font-size: 60px;
+    }
+    .container-wrapper {
+        margin: 20px auto;
+    }
+    
 }
