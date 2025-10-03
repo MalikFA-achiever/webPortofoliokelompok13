@@ -716,7 +716,7 @@ body::before {
     width: 350px; /* Lebar card sedikit disesuaikan */
     border-radius: 10px; /* Radius sedikit lebih besar */
     /* Menggunakan overlay gradien gelap di atas gambar untuk readability */
-    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('/images/pembukaan.jpg') center center / cover no-repeat;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('images/pembukaan.jpg') center center / cover no-repeat;
     position: relative;
     color: #fff;
     box-shadow: 0 6px 20px rgba(0,0,0,0.6); /* Shadow lebih gelap dan tegas */
@@ -771,16 +771,16 @@ body::before {
    tetap ada dan memiliki z-index yang lebih rendah (misalnya z-index: 1 atau 2). */
 
 .services__card:nth-child(2) {
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('/images/mabim1.jpg');
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('images/mabim1.jpg');
 }
 .services__card:nth-child(3) {
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('/images/mabim2.jpg'); /* Jika ada gambar lain */
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('images/mabim2.jpg'); /* Jika ada gambar lain */
 }
 .services__card:nth-child(4) {
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('/images/mabim3.png'); /* Jika ada gambar lain */
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('images/mabim3.png'); /* Jika ada gambar lain */
 }
 .services__card:nth-child(5) {
-    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('/images/orang5.jpg'); /* Jika ada gambar lain */
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%, rgba(17,17,17,0.85) 100%), url('images/orang5.jpg'); /* Jika ada gambar lain */
 }
 
 
